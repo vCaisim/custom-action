@@ -1,0 +1,17 @@
+name: "Custom Action"
+description: "A simple JavaScript action"
+inputs:
+  currentsApiUrl:
+    description: "Currents API URL"
+    required: true
+  runId:
+    description: "Run Id"
+    required: true
+  bearerToken:
+    description: "Bearer Authentication Token"
+    required: true
+outputs:
+  responseStatusCode: "HTTP Response status code"
+runs:
+  using: "node16"
+  main: "dist/index.js"

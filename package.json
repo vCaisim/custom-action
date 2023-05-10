@@ -1,0 +1,26 @@
+{
+  "name": "custom-action",
+  "version": "1.0.0",
+  "description": "A simple JavaScript action for GitHub workflows.",
+  "main": "index.js",
+  "scripts": {
+    "build": "esbuild index.js --bundle --platform=node --outdir=dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vCaisim/custom-action.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vCaisim/custom-action/issues"
+  },
+  "homepage": "https://github.com/vCaisim/custom-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "@actions/http-client": "^2.1.0",
+    "esbuild": "0.17.18"
+  }
+}
