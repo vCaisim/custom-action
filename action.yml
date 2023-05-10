@@ -1,17 +1,17 @@
 name: "Custom Action"
 description: "A simple JavaScript action"
 inputs:
-  currentsApiUrl:
+  currents-api-url:
     description: "Currents API URL"
     required: true
-  runId:
-    description: "Run Id"
+  run-id:
+    description: "Cypress run id"
     required: true
-  bearerToken:
-    description: "Bearer Authentication Token"
+  bearer-token:
+    description: "Bearer authentication token"
     required: true
 outputs:
-  responseStatusCode: "HTTP Response status code"
+  response-status-code: "HTTP Response status code"
 runs:
   using: "node16"
   main: "dist/index.js"

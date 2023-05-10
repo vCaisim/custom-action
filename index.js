@@ -3,9 +3,12 @@
 const core = require("@actions/core");
 const httpm = require("@actions/http-client");
 
-const currentsApiUrl = core.getInput("currentsApiUrl", { required: true });
-const runId = core.getInput("runId", { required: true });
-const bearerToken = core.getInput("bearerToken", { required: true });
+const currentsApiUrl = core.getInput("currents-api-url", {
+  required: true,
+  default: "https://api.currents.dev/api/v1",
+});
+const runId = core.getInput("run-id", { required: true });
+const bearerToken = core.getInput("bearer-token", { required: true });
 
 core.info("Calling the Currents API...");
 
@@ -13,15 +16,17 @@ const http = new httpm.HttpClient("custom-github-action", [
   new httpm.BearerCredentialHandler(bearerToken),
 ]);
 
-http
-  .put(`${currentsApiUrl}/runs/${runId}/cancel`)
-  .then((res) => {
+(async () => {
+  try {
+    const res = await http.put(`${currentsApiUrl}/runs/${runId}/cancel`);
+
     if (core.isDebug()) {
       core.debug(JSON.stringify(res));
     }
 
-    core.setOutput("responseStatusCode", res);
-
     core.info("The run was cancelled successfully!");
-  })
-  .catch(core.error);
+    core.setOutput("response-status-code", res);
+  } catch (error) {
+    core.setFailed(error.message);
+  }
+})();

@@ -2210,17 +2210,25 @@ Support boolean input list: \`true | True | TRUE | false | False | FALSE\``);
 // index.js
 var core = require_core();
 var httpm = require_lib();
-var currentsApiUrl = core.getInput("currentsApiUrl", { required: true });
-var runId = core.getInput("runId", { required: true });
-var bearerToken = core.getInput("bearerToken", { required: true });
+var currentsApiUrl = core.getInput("currents-api-url", {
+  required: true,
+  default: "https://api.currents.dev/api/v1"
+});
+var runId = core.getInput("run-id", { required: true });
+var bearerToken = core.getInput("bearer-token", { required: true });
 core.info("Calling the Currents API...");
 var http = new httpm.HttpClient("custom-github-action", [
   new httpm.BearerCredentialHandler(bearerToken)
 ]);
-http.put(`${currentsApiUrl}/runs/${runId}/cancel`).then((res) => {
-  if (core.isDebug()) {
-    core.debug(JSON.stringify(res));
+(async () => {
+  try {
+    const res = await http.put(`${currentsApiUrl}/runs/${runId}/cancel`);
+    if (core.isDebug()) {
+      core.debug(JSON.stringify(res));
+    }
+    core.info("The run was cancelled successfully!");
+    core.setOutput("response-status-code", res);
+  } catch (error) {
+    core.setFailed(error.message);
   }
-  core.setOutput("responseStatusCode", res);
-  core.info("The run was cancelled successfully!");
-}).catch(core.error);
+})();
