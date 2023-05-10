@@ -5,7 +5,6 @@ const httpm = require("@actions/http-client");
 
 const currentsApiUrl = core.getInput("currents-api-url", {
   required: true,
-  default: "https://api.currents.dev/api/v1",
 });
 const runId = core.getInput("run-id", { required: true });
 const bearerToken = core.getInput("bearer-token", { required: true });

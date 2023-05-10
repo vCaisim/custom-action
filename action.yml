@@ -4,6 +4,7 @@ inputs:
   currents-api-url:
     description: "Currents API URL"
     required: true
+    default: "https://api.currents.dev/api/v1"
   run-id:
     description: "Cypress run id"
     required: true
