@@ -23,7 +23,7 @@ const http = new HttpClient("custom-github-action", [
 
 (async () => {
   try {
-    const res = await http.putJson(
+    const { result, statusCode } = await http.putJson(
       `${currentsApiUrl}/runs/cancel-by-github-ci`,
       {
         githubRunId,
@@ -31,17 +31,15 @@ const http = new HttpClient("custom-github-action", [
       }
     );
 
-    const resBody = await res.readBody();
-
     if (core.isDebug()) {
-      core.debug(resBody);
+      core.debug(result);
     }
 
-    if (res.message.statusCode !== 200) {
-      core.error(`Currents API responed with ${res.message.statusCode}`);
-      core.setFailed(resBody);
+    if (statusCode !== 200) {
+      core.error(`Currents API responed with ${statusCode}`);
+      core.setFailed(result);
     } else {
-      core.info("The run was cancelled successfully!", res.message.statusCode);
+      core.info("The run was cancelled successfully!");
     }
   } catch (error) {
     core.setFailed(error.message);
