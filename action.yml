@@ -5,11 +5,14 @@ inputs:
     description: "Currents API URL"
     required: true
     default: "https://api.currents.dev/api/v1"
-  run-id:
-    description: "Cypress run id"
-    required: true
   bearer-token:
     description: "Bearer authentication token"
+    required: true
+  github-run-id:
+    description: "GitHub run id"
+    required: true
+  github-run-attempt:
+    description: "GitHub run attempt"
     required: true
 runs:
   using: "node16"

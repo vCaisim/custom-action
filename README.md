@@ -8,19 +8,17 @@ This action prints cancels the current cypress run by calling the Currents API.
 
 **Required** Currents API URL.
 
-### `run-id`
-
-**Required** Cypress run id.
-
 ### `bearer-token`
 
 **Required** Bearer authentication token.
 
-## Outputs
+### `github-run-id`
 
-### `response-status-code`
+**Required** GitHub run id.
 
-HTTP Response status code.
+### `github-run-attempt`
+
+**Required** GitHub run attempt.
 
 ## Example usage
 
@@ -28,6 +26,8 @@ HTTP Response status code.
 uses: actions/custom-action
 with:
   currents-api-url: ${{ vars.CURRENTS_API_URL }}
-  run-id: 'some-run-id',
   bearer-token: ${{ secrets.CURRENTS_API_TOKEN }}
+  github-run-id: ${{ github.run_id }}
+  github-run-attempt: ${{ github.run_attempt }}
+
 ```

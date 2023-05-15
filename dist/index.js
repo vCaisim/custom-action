@@ -2842,11 +2842,15 @@ const { BearerCredentialHandler } = __nccwpck_require__(526);
 const currentsApiUrl = core.getInput("currents-api-url", {
   required: true,
 });
-const runId = core.getInput("run-id", { required: true });
 const bearerToken = core.getInput("bearer-token", { required: true });
+const githubRunId = core.getInput("github-run-id", { required: true });
+const githubRunAttempt = core.getInput("github-run-attempt", {
+  required: true,
+});
 
 core.info("Calling the Currents API...");
-core.info(`Run id: ${runId}`);
+core.info(`GitHub run id: ${githubRunId}`);
+core.info(`GitHub run attempt: ${githubRunAttempt}`);
 
 const http = new HttpClient("custom-github-action", [
   new BearerCredentialHandler(bearerToken),
@@ -2854,7 +2858,14 @@ const http = new HttpClient("custom-github-action", [
 
 (async () => {
   try {
-    const res = await http.put(`${currentsApiUrl}/runs/${runId}/cancel`);
+    const res = await http.putJson(
+      `${currentsApiUrl}/runs/cancel-by-github-ci`,
+      {
+        githubRunId,
+        githubRunAttempt,
+      }
+    );
+
     const resBody = await res.readBody();
 
     if (core.isDebug()) {
