@@ -2871,7 +2871,7 @@ const http = new HttpClient("custom-github-action", [
     }
 
     if (statusCode !== 200) {
-      core.error(`Currents API responed with ${statusCode}`);
+      core.error(`Currents API responded with ${statusCode}`);
       core.setFailed(result);
     } else {
       core.info("The run was cancelled successfully!");

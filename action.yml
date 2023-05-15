@@ -3,7 +3,7 @@ description: "A simple JavaScript action"
 inputs:
   currents-api-url:
     description: "Currents API URL"
-    required: true
+    required: false
     default: "https://api.currents.dev/api/v1"
   bearer-token:
     description: "Bearer authentication token"
