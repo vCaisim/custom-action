@@ -2873,6 +2873,7 @@ const http = new HttpClient("custom-github-action", [
     }
 
     if (res.message.statusCode !== 200) {
+      core.error(`Currents API responed with ${res.message.statusCode}`);
       core.setFailed(resBody);
     } else {
       core.info("The run was cancelled successfully!", res.message.statusCode);
