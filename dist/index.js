@@ -2854,14 +2854,18 @@ const http = new HttpClient("custom-github-action", [
 (async () => {
   try {
     const res = await http.put(`${currentsApiUrl}/runs/${runId}/cancel`);
+    const resBody = await res.readBody();
 
     if (core.isDebug()) {
-      const resBody = await res.readBody();
       core.debug(JSON.stringify(resBody));
     }
 
+    if (res.message.statusCode !== 200) {
+      core.setFailed(resBody.errors[0].message);
+    }
+
     core.info("The run was cancelled successfully!");
-    core.setOutput("response-status-code", res.message.statusCode);
+    core.setOutput("response-status-code");
   } catch (error) {
     core.setFailed(error.message);
   }
