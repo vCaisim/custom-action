@@ -2836,19 +2836,19 @@ var __webpack_exports__ = {};
 
 
 const core = __nccwpck_require__(186);
-const httpm = __nccwpck_require__(255);
+const { HttpClient } = __nccwpck_require__(255);
+const { BearerCredentialHandler } = __nccwpck_require__(526);
 
 const currentsApiUrl = core.getInput("currents-api-url", {
   required: true,
-  default: "https://api.currents.dev/api/v1",
 });
 const runId = core.getInput("run-id", { required: true });
 const bearerToken = core.getInput("bearer-token", { required: true });
 
 core.info("Calling the Currents API...");
 
-const http = new httpm.HttpClient("custom-github-action", [
-  new httpm.BearerCredentialHandler(bearerToken),
+const http = new HttpClient("custom-github-action", [
+  new BearerCredentialHandler(bearerToken),
 ]);
 
 (async () => {

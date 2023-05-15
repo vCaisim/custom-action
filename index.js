@@ -1,7 +1,8 @@
 "use strict";
 
 const core = require("@actions/core");
-const httpm = require("@actions/http-client");
+const { HttpClient } = require("@actions/http-client");
+const { BearerCredentialHandler } = require("@actions/http-client/lib/auth");
 
 const currentsApiUrl = core.getInput("currents-api-url", {
   required: true,
@@ -11,8 +12,8 @@ const bearerToken = core.getInput("bearer-token", { required: true });
 
 core.info("Calling the Currents API...");
 
-const http = new httpm.HttpClient("custom-github-action", [
-  new httpm.BearerCredentialHandler(bearerToken),
+const http = new HttpClient("custom-github-action", [
+  new BearerCredentialHandler(bearerToken),
 ]);
 
 (async () => {
