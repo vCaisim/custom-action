@@ -11,9 +11,6 @@ inputs:
   bearer-token:
     description: "Bearer authentication token"
     required: true
-outputs:
-  response-status-code:
-    description: "HTTP Response status code"
 runs:
   using: "node16"
   main: "dist/index.js"

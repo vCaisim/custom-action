@@ -2861,11 +2861,10 @@ const http = new HttpClient("custom-github-action", [
     }
 
     if (res.message.statusCode !== 200) {
-      core.setFailed(resBody.errors[0].message);
+      core.setFailed(JSON.parse(resBody).errors[0].message);
     }
 
-    core.info("The run was cancelled successfully!");
-    core.setOutput("response-status-code");
+    core.info("The run was cancelled successfully!", res.message.statusCode);
   } catch (error) {
     core.setFailed(error.message);
   }
