@@ -22,11 +22,10 @@ const http = new HttpClient("custom-github-action", [
     const resBody = await res.readBody();
 
     if (core.isDebug()) {
-      core.debug(JSON.stringify(resBody));
+      core.debug(resBody);
     }
 
     if (res.message.statusCode !== 200) {
-      core.debug(resBody.errors)
       core.setFailed(resBody.errors[0].message);
     }
 
