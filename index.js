@@ -21,11 +21,12 @@ const http = new HttpClient("custom-github-action", [
     const res = await http.put(`${currentsApiUrl}/runs/${runId}/cancel`);
 
     if (core.isDebug()) {
-      core.debug(JSON.stringify(res));
+      const resBody = await res.readBody();
+      core.debug(JSON.stringify(resBody));
     }
 
     core.info("The run was cancelled successfully!");
-    core.setOutput("response-status-code", res);
+    core.setOutput("response-status-code", res.message.statusCode);
   } catch (error) {
     core.setFailed(error.message);
   }
