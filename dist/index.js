@@ -2861,7 +2861,7 @@ const http = new HttpClient("custom-github-action", [
     }
 
     if (res.message.statusCode !== 200) {
-      core.setFailed(JSON.parse(resBody).errors[0].message);
+      core.setFailed(resBody);
     }
 
     core.info("The run was cancelled successfully!", res.message.statusCode);
