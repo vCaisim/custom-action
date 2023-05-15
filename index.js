@@ -26,6 +26,7 @@ const http = new HttpClient("custom-github-action", [
     }
 
     if (res.message.statusCode !== 200) {
+      core.debug(resBody.errors)
       core.setFailed(resBody.errors[0].message);
     }
 
