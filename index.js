@@ -11,6 +11,7 @@ const runId = core.getInput("run-id", { required: true });
 const bearerToken = core.getInput("bearer-token", { required: true });
 
 core.info("Calling the Currents API...");
+core.info(`Run id: ${runId}`);
 
 const http = new HttpClient("custom-github-action", [
   new BearerCredentialHandler(bearerToken),
@@ -27,9 +28,9 @@ const http = new HttpClient("custom-github-action", [
 
     if (res.message.statusCode !== 200) {
       core.setFailed(resBody);
+    } else {
+      core.info("The run was cancelled successfully!", res.message.statusCode);
     }
-
-    core.info("The run was cancelled successfully!", res.message.statusCode);
   } catch (error) {
     core.setFailed(error.message);
   }
