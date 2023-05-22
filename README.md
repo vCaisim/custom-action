@@ -6,11 +6,11 @@ This action prints cancels the current cypress run by calling the Currents API.
 
 ### `currents-api-url`
 
-**Required** Currents API URL.
+Currents API URL. Default value is `https://api.currents.dev/api/v1`
 
 ### `bearer-token`
 
-**Required** Bearer authentication token.
+**Required** Bearer authorization token.
 
 ### `github-run-id`
 
@@ -23,11 +23,12 @@ This action prints cancels the current cypress run by calling the Currents API.
 ## Example usage
 
 ```yaml
-uses: actions/custom-action
-with:
-  currents-api-url: ${{ vars.CURRENTS_API_URL }}
-  bearer-token: ${{ secrets.CURRENTS_API_TOKEN }}
-  github-run-id: ${{ github.run_id }}
-  github-run-attempt: ${{ github.run_attempt }}
+- name: Cancel the run if workflow is cancelled
+  if: ${{ cancelled() }}
+  uses: currents-dev/cancel-run-action@v1
+  with:
+    bearer-token: ${{ secrets.CURRENTS_API_TOKEN }}
+    github-run-id: ${{ github.run_id }}
+    github-run-attempt: ${{ github.run_attempt }}
 
 ```
